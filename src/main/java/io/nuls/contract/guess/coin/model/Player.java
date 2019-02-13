@@ -7,7 +7,7 @@ import java.math.BigInteger;
 /**
  * @Author: wangdaijing
  * @Time: 2019-01-16 17:14
- * @Description: 功能描述
+ * @Description: 玩家
  */
 public class Player {
 
