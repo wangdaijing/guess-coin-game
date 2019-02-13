@@ -126,6 +126,7 @@ public class GuessCoinContract implements Contract {
         Long id = tableList.size() + 1L;
         Tools.requireNonNull(riddleHash, "riddle hash can't null");
         Tools.requireNonNull(gameBlockNumber, "gameBlockNumber can't null");
+        Utils.require(gameBlockNumber > 6, "game block number has to be greater than 6 ");
         int activeTableCount = 0;
         for (GameTable gt : tableList.values()){
             if(gt.getStatus().equals(GameStatus.WATING_JOIN)){
@@ -286,7 +287,7 @@ public class GuessCoinContract implements Contract {
         Tools.requireNonNull(riddle, "riddle can't null");
         GameTable gt = checkGameTableAndGet(tableId, GameStatus.WATING_JOIN);
         Utils.require(gt.getEndBlockHeight() <= Block.number(), "还没有到达开奖环节的块高度");
-        String hash = Utils.sha3(String.valueOf(riddle));
+        String hash = Utils.sha3(String.valueOf(riddle).getBytes());
         //比对庄家提供的谜底与开盘时提供的是否一致
         Utils.require(hash.equals(gt.getRiddleHash()), "riddle and riddleHash not match");
         TransferEvent event = new TransferEvent();
